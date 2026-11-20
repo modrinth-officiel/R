@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chest Open - Connexion</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    color: #f2f3f5;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(245, 180, 40, .18), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(30, 120, 255, .30), transparent 45%),
+      linear-gradient(135deg, #12082b 0%, #1d2a8c 55%, #0b6fd6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* petites étoiles */
+  body::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 10% 30%, #fff8, transparent),
+      radial-gradient(2px 2px at 30% 80%, #fff6, transparent),
+      radial-gradient(3px 3px at 60% 12%, #fff7, transparent),
+      radial-gradient(2px 2px at 80% 40%, #fff6, transparent),
+      radial-gradient(3px 3px at 92% 70%, #fff5, transparent),
+      radial-gradient(2px 2px at 45% 55%, #fff5, transparent),
+      radial-gradient(2px 2px at 70% 90%, #fff7, transparent);
+    pointer-events: none;
+  }
+  .brand {
+    position: absolute; top: 28px; left: 32px;
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 26px; letter-spacing: .3px;
+  }
+  .brand svg { width: 38px; height: 38px; }
+
+  .card {
+    position: relative;
+    width: 100%; max-width: 980px;
+    background: #242428;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, .45);
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    padding: 40px;
+  }
+  .left h1 { text-align: center; font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .left .sub { text-align: center; color: #b5bac1; margin-bottom: 22px; }
+  label { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #b5bac1; margin-bottom: 8px; }
+  label .req { color: #f23f42; }
+  .field { margin-bottom: 20px; position: relative; }
+  input {
+    width: 100%; height: 48px;
+    background: #1e1f22; color: #f2f3f5;
+    border: 1px solid #111214; border-radius: 4px;
+    padding: 0 14px; font-size: 16px; outline: none;
+  }
+  input:focus { border-color: #f5b428; }
+  .eye {
+    position: absolute; right: 8px; bottom: 7px;
+    background: none; border: 0; color: #b5bac1; cursor: pointer;
+    width: 34px; height: 34px; font-size: 18px;
+  }
+  .error { color: #f23f42; font-size: 14px; min-height: 20px; margin: -6px 0 10px; }
+  .btn {
+    width: 100%; height: 48px; border: 0; border-radius: 4px;
+    background: #f5b428; color: #241a00;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .btn:hover { background: #e0a21a; }
+
+  .right { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .right svg { width: 190px; height: 190px; margin-bottom: 22px; }
+  .right h2 { font-size: 24px; margin-bottom: 10px; }
+  .right p { color: #b5bac1; line-height: 1.45; }
+
+  @media (max-width: 800px) {
+    .card { grid-template-columns: 1fr; padding: 28px 22px; }
+    .right { display: none; }
+    .brand { position: static; margin-bottom: 20px; }
+    body { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brand">
+  <svg viewBox="0 0 64 64" aria-hidden="true">
+    <rect x="6" y="28" width="52" height="28" rx="4" fill="#8b4a1c"/>
+    <path d="M6 30 Q6 10 32 10 Q58 10 58 30 Z" fill="#a85c25"/>
+    <rect x="6" y="26" width="52" height="6" fill="#f5b428"/>
+    <rect x="27" y="24" width="10" height="16" rx="2" fill="#f5b428"/>
+    <circle cx="32" cy="32" r="2.4" fill="#5a2f10"/>
+  </svg>
+  Chest Open
+</div>
+
+<main class="card">
+  <form class="left" id="login" autocomplete="off" novalidate>
+    <h1>Content de te revoir !</h1>
+    <p class="sub">Entre tes infos pour ouvrir le coffre.</p>
+
+    <div class="field">
+      <label for="email">Adresse e-mail <span class="req">*</span></label>
+      <input id="email" type="email" required>
+    </div>
+
+    <div class="field">
+      <label for="code">Code d'accès <span class="req">*</span></label>
+      <input id="code" type="password" required>
+      <button type="button" class="eye" id="eye" aria-label="Afficher le code">👁</button>
+    </div>
+
+    <div class="error" id="error" role="alert"></div>
+    <button class="btn" type="submit">Connexion</button>
+  </form>
+
+  <aside class="right">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="6" y="28" width="52" height="28" rx="4" fill="#8b4a1c"/>
+      <path d="M6 30 Q6 10 32 10 Q58 10 58 30 Z" fill="#a85c25"/>
+      <rect x="6" y="26" width="52" height="6" fill="#f5b428"/>
+      <rect x="27" y="24" width="10" height="16" rx="2" fill="#f5b428"/>
+      <circle cx="32" cy="32" r="2.4" fill="#5a2f10"/>
+    </svg>
+    <h2>Ouvre le coffre</h2>
+    <p>Connecte-toi avec ton adresse e-mail et ton code d'accès pour entrer sur le site.</p>
+  </aside>
+</main>
+
+<script>
+  // Empreinte SHA-256 de "adresse:code" (le code n'apparaît pas en clair ici)
+  const OK_HASH = "73cfb3f9ca573df351fc8a73ad3d3f333a27dda07d9f309eba55e192f81b3a53";
+
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  const form = document.getElementById("login");
+  const email = document.getElementById("email");
+  const code = document.getElementById("code");
+  const error = document.getElementById("error");
+
+  document.getElementById("eye").addEventListener("click", () => {
+    code.type = code.type === "password" ? "text" : "password";
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    error.textContent = "";
+    const h = await sha256(email.value.trim().toLowerCase() + ":" + code.value.trim());
+    if (h === OK_HASH) {
+      sessionStorage.setItem("chest_ok", "1");
+      window.location.href = "coffre.html";
+    } else {
+      error.textContent = "Adresse e-mail ou code incorrect.";
+    }
+  });
+</script>
+</body>
+</html>

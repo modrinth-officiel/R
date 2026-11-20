@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chest Open - Bienvenue</title>
+<script>
+  // Si on n'est pas passé par la connexion, retour à la page de connexion
+  if (sessionStorage.getItem("chest_ok") !== "1") {
+    window.location.replace("index.html");
+  }
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    color: #f2f3f5;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(245, 180, 40, .18), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(30, 120, 255, .30), transparent 45%),
+      linear-gradient(135deg, #12082b 0%, #1d2a8c 55%, #0b6fd6 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 24px;
+  }
+  h1 { font-size: 32px; margin-bottom: 8px; }
+  p { color: #c9cdd4; margin-bottom: 28px; }
+  .chest { width: 240px; height: 240px; cursor: pointer; }
+  .lid { transform-origin: 6px 30px; transition: transform .6s ease; }
+  .chest.open .lid { transform: rotate(-55deg); }
+  .glow { opacity: 0; transition: opacity .6s ease; }
+  .chest.open .glow { opacity: 1; }
+  button {
+    margin-top: 28px; height: 44px; padding: 0 24px;
+    border: 0; border-radius: 4px; cursor: pointer;
+    background: #f5b428; color: #241a00; font-size: 16px; font-weight: 700;
+  }
+  button:hover { background: #e0a21a; }
+</style>
+</head>
+<body>
+  <h1>Bienvenue dans Chest Open</h1>
+  <p>Tu es connecté. Clique sur le coffre pour l'ouvrir.</p>
+
+  <svg class="chest" id="chest" viewBox="0 0 64 64" role="img" aria-label="Coffre">
+    <ellipse class="glow" cx="32" cy="30" rx="22" ry="8" fill="#ffe27a"/>
+    <rect x="6" y="28" width="52" height="28" rx="4" fill="#8b4a1c"/>
+    <rect x="6" y="40" width="52" height="3" fill="#f5b428"/>
+    <g class="lid">
+      <path d="M6 30 Q6 10 32 10 Q58 10 58 30 Z" fill="#a85c25"/>
+      <rect x="6" y="26" width="52" height="6" fill="#f5b428"/>
+      <rect x="27" y="24" width="10" height="16" rx="2" fill="#f5b428"/>
+      <circle cx="32" cy="32" r="2.4" fill="#5a2f10"/>
+    </g>
+  </svg>
+
+  <button id="logout">Se déconnecter</button>
+
+  <script>
+    document.getElementById("chest").addEventListener("click", function () {
+      this.classList.toggle("open");
+    });
+    document.getElementById("logout").addEventListener("click", function () {
+      sessionStorage.removeItem("chest_ok");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
